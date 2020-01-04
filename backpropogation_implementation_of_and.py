@@ -88,7 +88,7 @@ network = [ # hidden layer: 2 inputs -> 2 outputs
 
 
 
-for epoch in tqdm.trange(20000, desc="neural net for XOR gate"):
+for epoch in tqdm.trange(20000, desc="neural net for AND"):
     for x, y in zip(xs, ys):
         gradients = sqerror_gradients(network, x, y)
 
@@ -98,9 +98,13 @@ for epoch in tqdm.trange(20000, desc="neural net for XOR gate"):
                         for layer, layer_grad in zip(network, gradients)]
 
 ## Check that we have a trained network for XOR
+print(feed_forward(network, [0, 0])[-1][0])
+print(feed_forward(network, [0, 1])[-1][0])
+print(feed_forward(network, [1, 0])[-1][0])
+print(feed_forward(network, [1, 1])[-1][0])
+
 assert feed_forward(network, [0, 0])[-1][0] < 0.01
 assert feed_forward(network, [0, 1])[-1][0] < 0.01
 assert feed_forward(network, [1, 0])[-1][0] < 0.01
 assert feed_forward(network, [1, 1])[-1][0] > 0.9
-
 
